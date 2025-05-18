@@ -1,14 +1,22 @@
-# 🔐 حماية بكلمة مرور
+import streamlit as st  # ← لازم يكون هذا أولاً ✅
+
+# 🔐 كود الحماية هنا بعده مباشرة
 AUTHORIZED_USER = "admin"
-AUTHORIZED_PASS = "1234"  # ← غيرها لكلمة سر خاصة بك
+AUTHORIZED_PASS = "1234"
 
 st.sidebar.title("تسجيل الدخول 🔐")
-username = st.sidebar.text_input("admin")
+username = st.sidebar.text_input(" admin")
 password = st.sidebar.text_input("2080", type="password")
 
 if username != AUTHORIZED_USER or password != AUTHORIZED_PASS:
     st.warning("⚠️ يرجى إدخال بيانات صحيحة للوصول للأداة.")
-    st.stop()# certificate_app.py
+    st.stop()
+
+# بعد كذا كمل باقي الكود كالمعتاد:
+import pandas as pd
+import yagmail
+# ...
+
 import streamlit as st
 import pandas as pd
 import yagmail
