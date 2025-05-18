@@ -3,8 +3,7 @@ st.set_page_config(page_title="نظام إصدار الشهادات", layout="ce
 
 # 🔐 حماية بكلمة مرور
 AUTHORIZED_USER = "admin"
-AUTHORIZED_PASS = "2080"
-
+AUTHORIZED_PASS = "1234"
 
 st.sidebar.title("تسجيل الدخول 🔐")
 username = st.sidebar.text_input("اسم المستخدم")
@@ -14,16 +13,7 @@ if username != AUTHORIZED_USER or password != AUTHORIZED_PASS:
     st.warning("⚠️ يرجى إدخال بيانات صحيحة للوصول للأداة.")
     st.stop()
 
-# 👇 بعدين كمل الكود مثل ما هو
-import pandas as pd
-import yagmail
-# ...
-
-import pandas as pd
-import yagmail
-# ...
-
-import streamlit as st
+# --- الكود الرئيسي بعد تسجيل الدخول ---
 import pandas as pd
 import yagmail
 from PyPDF2 import PdfReader, PdfWriter
@@ -37,16 +27,14 @@ from bidi.algorithm import get_display
 import os
 from reportlab.lib import colors
 
-st.set_page_config(page_title="نظام إصدار الشهادات", layout="centered")
 st.title("📜 نظام إصدار الشهادات التلقائي")
 
-# تحميل الملفات
 uploaded_excel = st.file_uploader("📥 اختر ملف Excel (يحتوي على الاسم والإيميل):", type=["xlsx"])
 uploaded_pdf = st.file_uploader("📄 اختر قالب الشهادة (PDF):", type=["pdf"])
 uploaded_font = st.file_uploader("🔤 اختر ملف الخط العربي (مثل Cairo-Regular.ttf):", type=["ttf"])
 
-sender_email = st.text_input("fasg6443f@gmail.com")
-app_password = st.text_input("eetgmhjlvfiylklw")
+sender_email = st.text_input("✉️ بريد المرسل (Gmail)")
+app_password = st.text_input("🔑 كلمة مرور التطبيقات", type="password")
 
 font_size = st.slider("🔠 حجم الخط", 20, 40, 28)
 font_color = st.color_picker("🎨 اختر لون النص", "#003366")
@@ -56,10 +44,9 @@ y_position = st.slider("↕️ موضع الاسم (ارتفاع)", 100, 700, 47
 
 if st.button("🚀 إصدار الشهادات"):
     if not uploaded_excel or not uploaded_pdf or not uploaded_font:
-        st.error("يرجى تحميل جميع الملفات المطلوبة.")
+        st.error("❌ يرجى تحميل جميع الملفات المطلوبة.")
     else:
         try:
-            # حفظ الملفات المؤقتة
             excel_path = "data.xlsx"
             template_path = "template.pdf"
             font_path = "arabic_font.ttf"
@@ -104,10 +91,10 @@ if st.button("🚀 إصدار الشهادات"):
                 yag.send(
                     to=email,
                     subject="🎓 شهادتك بعد الدورة",
-                    contents=f"السلام عليكم {name}\n\nمرفق لك شهادة حضورك للدورة.\nمع التحية.",
+                    contents=f"السلام عليكم {name}\\n\\nمرفق لك شهادة حضورك للدورة.\\nمع التحية.",
                     attachments=output_filename
                 )
 
             st.success("✅ تم إرسال جميع الشهادات بنجاح!")
         except Exception as e:
-            st.error(f"حدث خطأ أثناء التنفيذ: {str(e)}")
+            st.error(f"❌ حدث خطأ أثناء التنفيذ: {str(e)}")
