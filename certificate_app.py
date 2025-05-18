@@ -1,18 +1,25 @@
-import streamlit as st  # ← لازم يكون هذا أولاً ✅
+import streamlit as st
 
-# 🔐 كود الحماية هنا بعده مباشرة
+# ❗️لازم يكون هذا السطر أول شيء بعد import streamlit
+st.set_page_config(page_title="نظام إصدار الشهادات", layout="centered")
+
+# 🔐 الحماية بكلمة مرور
 AUTHORIZED_USER = "admin"
 AUTHORIZED_PASS = "2080"
 
 st.sidebar.title("تسجيل الدخول 🔐")
-username = st.sidebar.text_input(" اسم المستخدم")
+username = st.sidebar.text_input("اسم المستخدم")
 password = st.sidebar.text_input("كلمة المرور", type="password")
 
 if username != AUTHORIZED_USER or password != AUTHORIZED_PASS:
     st.warning("⚠️ يرجى إدخال بيانات صحيحة للوصول للأداة.")
     st.stop()
 
-# بعد كذا كمل باقي الكود كالمعتاد:
+# 👇 بعدين كمل الكود مثل ما هو
+import pandas as pd
+import yagmail
+# ...
+
 import pandas as pd
 import yagmail
 # ...
