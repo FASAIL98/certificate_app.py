@@ -1,11 +1,10 @@
 import streamlit as st
-
-# ❗️ هذا السطر **لازم** يكون ثاني سطر مباشرة
 st.set_page_config(page_title="نظام إصدار الشهادات", layout="centered")
 
-# 🔐 كود الحماية بعده
+# 🔐 حماية بكلمة مرور
 AUTHORIZED_USER = "admin"
 AUTHORIZED_PASS = "2080"
+
 
 st.sidebar.title("تسجيل الدخول 🔐")
 username = st.sidebar.text_input("اسم المستخدم")
