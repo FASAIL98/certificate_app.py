@@ -2,11 +2,11 @@ import streamlit as st  # ← لازم يكون هذا أولاً ✅
 
 # 🔐 كود الحماية هنا بعده مباشرة
 AUTHORIZED_USER = "admin"
-AUTHORIZED_PASS = "1234"
+AUTHORIZED_PASS = "2080"
 
 st.sidebar.title("تسجيل الدخول 🔐")
-username = st.sidebar.text_input(" admin")
-password = st.sidebar.text_input("2080", type="password")
+username = st.sidebar.text_input(" اسم المستخدم")
+password = st.sidebar.text_input("كلمة المرور", type="password")
 
 if username != AUTHORIZED_USER or password != AUTHORIZED_PASS:
     st.warning("⚠️ يرجى إدخال بيانات صحيحة للوصول للأداة.")
