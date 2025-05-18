@@ -1,4 +1,14 @@
-# certificate_app.py
+# 🔐 حماية بكلمة مرور
+AUTHORIZED_USER = "admin"
+AUTHORIZED_PASS = "1234"  # ← غيرها لكلمة سر خاصة بك
+
+st.sidebar.title("تسجيل الدخول 🔐")
+username = st.sidebar.text_input("اسم المستخدم")
+password = st.sidebar.text_input("كلمة المرور", type="password")
+
+if username != AUTHORIZED_USER or password != AUTHORIZED_PASS:
+    st.warning("⚠️ يرجى إدخال بيانات صحيحة للوصول للأداة.")
+    st.stop()# certificate_app.py
 import streamlit as st
 import pandas as pd
 import yagmail
