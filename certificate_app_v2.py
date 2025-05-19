@@ -73,7 +73,7 @@ if st.button("🚀 إصدار الشهادات"):
                 can = canvas.Canvas(packet, pagesize=letter)
                 can.setFont("CustomArabicFont", font_size)
                 can.setFillColor(colors.HexColor(font_color))
-                can.drawCentredString(x_position, y_position, bidi_text)
+                can.drawRightString(x_position, y_position, bidi_text)
                 can.save()
 
                 packet.seek(0)
