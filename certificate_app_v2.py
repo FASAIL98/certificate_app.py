@@ -27,26 +27,28 @@ from bidi.algorithm import get_display
 import os
 from reportlab.lib import colors
 
-st.title("📜 نظام إصدار الشهادات التلقائي - النسخة المحسنة")
+st.title("📜 نظام إصدار الشهادات التلقائي - النسخة النهائية")
 
-uploaded_excel = st.file_uploader("📥 اختر ملف Excel (يحتوي على الاسم والإيميل):", type=["xlsx"])
-uploaded_pdf = st.file_uploader("📄 اختر قالب الشهادة (PDF):", type=["pdf"])
+col1, col2 = st.columns(2)
+with col1:
+    uploaded_excel = st.file_uploader("📥 ملف Excel (الاسم + الإيميل):", type=["xlsx"])
+    font_size = st.slider("🔠 حجم الخط", 20, 50, 28)
+    font_color = st.color_picker("🎨 لون النص", "#003366")
+with col2:
+    uploaded_pdf = st.file_uploader("📄 قالب الشهادة (PDF):", type=["pdf"])
+    x_position = st.slider("↔️ موضع الاسم أفقيًا", 100, 550, 300)
+    y_position = st.slider("↕️ موضع الاسم عموديًا", 100, 700, 450)
 
 sender_email = st.text_input("✉️ بريد المرسل (Gmail)")
 app_password = st.text_input("🔑 كلمة مرور التطبيقات", type="password")
+custom_message = st.text_area("📝 نص الرسالة المرفقة مع الشهادة:",
+    "السلام عليكم،\n\nمرفق لك شهادة حضورك للدورة الإلكترونية.\nمع خالص التحية.")
 
-custom_message = st.text_area("📝 نص الرسالة المرفقة مع الشهادة", "السلام عليكم،\nمرفق لك شهادة حضورك للدورة الإلكترونية.\nمع خالص التحية.")
-
-font_size = st.slider("🔠 حجم الخط", 20, 40, 28)
-font_color = st.color_picker("🎨 اختر لون النص", "#003366")
-x_position = st.slider("↔️ موضع الاسم (عرض)", 100, 550, 300)
-y_position = st.slider("↕️ موضع الاسم (ارتفاع)", 100, 700, 450)
-
-if st.button("🚀 إصدار الشهادات"):
+if st.button("🚀 إصدار الشهادات وإرسالها"):
     if not uploaded_excel or not uploaded_pdf:
         st.error("❌ يرجى تحميل ملف Excel وقالب الشهادة.")
     elif not os.path.exists("Amiri-Regular.ttf"):
-        st.error("❌ لم يتم العثور على ملف الخط 'Amiri-Regular.ttf' داخل المشروع.")
+        st.error("❌ ملف الخط Amiri-Regular.ttf غير موجود داخل المشروع.")
     else:
         try:
             excel_path = "data.xlsx"
@@ -58,13 +60,13 @@ if st.button("🚀 إصدار الشهادات"):
             with open(template_path, "wb") as f:
                 f.write(uploaded_pdf.read())
 
-            pdfmetrics.registerFont(TTFont('CustomArabicFont', font_path))
+            pdfmetrics.registerFont(TTFont("CustomArabicFont", font_path))
             df = pd.read_excel(excel_path)
             yag = yagmail.SMTP(user=sender_email, password=app_password)
 
             for index, row in df.iterrows():
-                name = str(row['الاسم']).strip()
-                email = str(row['الإيميل']).strip()
+                name = str(row["الاسم"]).strip()
+                email = str(row["الإيميل"]).strip()
 
                 reshaped_text = arabic_reshaper.reshape(name)
                 bidi_text = get_display(reshaped_text)
